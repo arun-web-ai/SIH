@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nagarvikas</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .main {
+            width: 99vw;
+            height: 200vh;
+            position: relative;
+        }
+
+        .navbar {
+            border: 2px solid black;
+            width: 99vw;
+            height: 10vh;
+            background-color: black;
+            color: white;
+            position: sticky;
+            top: 0;
+            /* Stick the navbar to the top */
+            z-index: 1000;
+            /* Ensure the navbar stays on top of other elements */
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            width: 99vw;
+        }
+
+        .logo img {
+            width: 210px;
+            height: 40px;
+        }
+
+        ul {
+            display: flex;
+            gap: 80px;
+            list-style: none;
+            margin: 0;
+            padding-left: 730px;
+            align-items: center;
+            font-size: larger;
+            cursor: pointer;
+            width: 99vw;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .first {
+            position: relative;
+            width: 99vw;
+            padding-top: 1px;
+        }
+
+        .first img {
+            width: 100%;
+            height: 70vh;
+            opacity: 1;
+            filter: brightness(30%);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .first-one {
+            position: relative;
+            z-index: 1;
+            color: white;
+            padding: 20px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .first-one div {
+            margin-bottom: 20px;
+        }
+
+        .first-one div:first-child {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .first-one div:nth-child(2) {
+            font-size: 25px;
+            max-width: 800px;
+            line-height: 1.6;
+            margin: auto;
+        }
+
+
+        /* Slider container */
+        .slider {
+            width: 99vw;
+            overflow: hidden;
+            /* Hide overflow */
+            height: var(--height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* List container for slider items */
+        .slider .list {
+            display: flex;
+            width: calc(var(--width) * var(--quantity) * 2);
+            /* Set the width dynamically, doubled for looping */
+            animation: scroll 20s linear infinite;
+            /* Continuous scroll */
+        }
+
+        /* Slider items */
+        .slider .list .item {
+            width: var(--width);
+            height: var(--height);
+            flex-shrink: 0;
+        }
+
+        .slider .list .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Keyframe animation for seamless scrolling */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-1 * var(--width) * var(--quantity)));
+                /* Slide by the width of all items */
+            }
+        }
+
+        /* Pause the slideshow on hover */
+        .slider:hover .list {
+            animation-play-state: paused;
+        }
+
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            /* Change from left: 0 to right: 0 */
+            left: auto;
+            /* Ensure left is not affecting the position */
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+
+        /* Styling for the input box */
+        .dropdown {
+            width: 200px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Container for the scrollable menu */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            max-height: 150px;
+            /* Limits the height */
+            width: 100%;
+            overflow-y: auto;
+            /* Enables scrolling */
+            z-index: 1;
+        }
+
+        /* Show the dropdown on hover */
+        .dropdown:hover .dropdown-content {
+            display: grid;
+        }
+
+        /* List of departments */
+        .dropdown-content a {
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            color: black;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+        .About {
+            border: 2px solid black;
+            width: 99vw;
+            height: 50vh;
+            background-color: rgb(26, 17, 17);
+            color: white;
+            padding: 16px;
+        }
+
+        .About p {
+
+            font-size: larger;
+        }
+
+        .section {
+            border: 3px solid grey;
+            width: 99vw;
+        }
+
+        .footer {
+            border: 1px solid black;
+            background-color: rgb(26, 17, 17);
+            height: 60vh;
+            width: 99vw;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: larger;
+        }
+
+        .footer-items h2 {
+            margin-bottom: 20px;
+        }
+
+        .footer-items p {
+            margin-bottom: 20px;
+        }
+
+        .footer-items p:nth-of-type(2),
+        .footer-items p:nth-of-type(3) {
+            margin-bottom: 10px;
+        }
+
+        .footer-items h5 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="navbar" style="background-color: black; color: white;">
+            <div class="nav">
+                <div class="logo">
+                    <img src="NagarVikas.png" alt="">
+                </div>
+                <ul>
+                    <li>Home</li>
+                    <li>Complaint</li>
+                    <li>Help</li>
+                    <li>call</li>
+                    <div id="mySidenav" class="sidenav">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <a href="#aboutSection">About</a> <!-- Link to the About section -->
+                        <a href="#">Services</a>
+                        <a href="#">Department
+                            <div class="dropdown">
+                                Select Department
+                                <div class="dropdown-content">
+                                    <a href="#">Ministry of Road Transport & Highways</a>
+                                    <a href="#">Water Resources Department</a>
+                                    <a href="#">Ministry of Power</a>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#">Clients</a>
+                        <a href="#">Contact</a>
+                        <a href="#">Contact</a>
+                        <a href="#">Schedule</a>
+                        <a href="#"></a>
+                        <a href="SignIn.html">Login</a>
+
+                    </div>
+                    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+                </ul>
+            </div>
+        </div>
+
+        <script>
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "250px";
+            }
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
+
+            // Scroll to the About section when clicked
+            document.querySelector('.sidenav a[href="#aboutSection"]').addEventListener('click', function (e) {
+                e.preventDefault();
+                document.getElementById('aboutSection').scrollIntoView({ behavior: 'smooth' });
+                closeNav();
+            });
+        </script>
+
+        <div class="first">
+            <img src="https://cdn.pixabay.com/photo/2016/11/18/22/31/architecture-1837176_640.jpg" alt="">
+            <div class="first-one">
+                <div>Welcome to NagarVikas</div>
+                <div>Empower urban governance with seamless interdepartmental cooperation. Our platform bridges the gaps
+                    between various agencies, facilitating efficient data exchange, collaborative project management,
+                    and streamlined scheduling. By integrating resources, coordinating tasks, and fostering dialogue, we
+                    drive progress and enhance the effectiveness of urban development projects. Join us in building a
+                    more connected and efficient city.</div>
+            </div>
+        </div>
+
+        <div class="slider" style="--width:390px; --height:300px; --quantity:5; margin-top: 200px;">
+            <div class="list">
+                <div class="item"><img src="IMG_20240918_204131.jpg" alt=""></div>
+                <div class="item"><img src="IMG_20240918_204144.jpg" alt=""></div>
+                <div class="item"><img src="IMG_20240918_204155.jpg" alt=""></div>
+                <div class="item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxl7FkI0-gS1vZ0iYF6qfm91K0meXI8-c2yw&s" alt=""></div>
+                <div class="item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyG4-OoVBTn_U6CgKEflcWpbHaHSH8Gl2tJw&s" alt=""></div>
+        
+                <!-- Duplicate the items to allow smooth looping -->
+                <div class="item"><img src="IMG_20240918_204131.jpg" alt=""></div>
+                <div class="item"><img src="IMG_20240918_204144.jpg" alt=""></div>
+                <div class="item"><img src="IMG_20240918_204155.jpg" alt=""></div>
+                <div class="item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxl7FkI0-gS1vZ0iYF6qfm91K0meXI8-c2yw&s" alt=""></div>
+                <div class="item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyG4-OoVBTn_U6CgKEflcWpbHaHSH8Gl2tJw&s" alt=""></div>
+                
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div id="aboutSection" class="About">
+            <h2>About Us</h2>
+            <p>The aim of developing this digital platform is to address the multifaceted challenges of urban governance
+                in India, where a plethora of authorities and implementing agencies often results in inefficiencies and
+                delays. The current landscape is plagued by underutilization of resources, miscoordination, and
+                overlapping projects, which can hinder progress and inflate costs. For example, a road built by one
+                agency may be compromised by utility installations carried out later by another, leading to unnecessary
+                damage and repair work. To mitigate such issues, our platform will provide a comprehensive solution for
+                interdepartmental cooperation.
+
+                Our digital platform will facilitate the seamless exchange of data and resources between various
+                agencies, including technical expertise, machinery, and technology. It will offer a centralized system
+                for listing ongoing and upcoming projects, enabling agencies to access and share relevant information
+                efficiently. Scheduling tools will be integrated to coordinate tasks, reports, and work distribution for
+                projects that involve multiple departments, reducing delays and improving overall project management.
+
+                Additionally, the platform will help identify projects across different departments that share the same
+                site. It will provide tools for organizing meetings, unified project phasing, and collaborative planning
+                to streamline execution and minimize costs. Training and capacity-building exercises, workshops, and
+                seminars will also be available to enhance the skills of all stakeholders involved.
+
+                A key feature of the platform will be its discussion forum, which will include sections for
+                intra-departmental, inter-departmental, and public discussions. This will foster communication and
+                collaboration among various groups, ensuring that all voices are heard and that solutions are developed
+                collectively.
+
+                In summary, our digital platform aims to revolutionize urban governance by improving coordination,
+                resource utilization, and project management, ultimately leading to more efficient and effective urban
+                development.</p>
+        </div>
+
+
+        <div class="section"></div>
+
+        <div class="footer">
+            <div class="footer-items">
+                <h2>Contact Us</h2>
+                <p>Phone: 123-456-7890</p>
+                <p>Email: info@nagarvikas.com</p>
+                <p>Address: 1234 Urban Street, Cityville, 56789</p>
+                <h5>Working Hours:</h5>
+                <p>Mon-Fri: 9:00 AM - 6:00 PM</p>
+                <p>Sat-Sun: Closed</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
